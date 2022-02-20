@@ -1,0 +1,161 @@
+metadata:
+  title: Drafting a Letter of Administration
+  short title: Drafting a Letter of Administration
+  ---
+  sections: 
+    - main: Letter of Administration
+      subsections:
+      - Name
+      - Gender
+      - Identification
+      - Address
+      - Date
+      - Estate Value
+      - Country of Domicile
+      - Marital Status
+      - Nationality
+      - Religion
+---
+features:
+  progress bar: True
+  show progress bar percentage: True
+  navigation: True
+---
+objects:
+- deceased_property
+---
+Question 1
+mandatory: True
+question: |
+  From here on out, Afterlife will assist you with drafting a Letter of Administration. Before we proceed, please ensure that you have prepared: 1) The original death certificate, 2) The original NRIC of the administrator, and 3) Photocopies of both the NRIC and birth certificates of all beneficiaries
+buttons:
+  - I am prepared, let's begin : Question 2
+---
+Question 2
+mandatory: True
+section: Name
+question: |
+  Does the deceased go by any other name which is not stated in the official death certificate?
+ subquestion: |
+  If you are unsure, please click no.
+ fields:
+  - Alias: alias
+    input type: yesno radio
+    choices:
+      - Yes
+      - No
+ yes: Question 3
+ no: Question 4
+ ---
+ Question 3
+ mandatory: True
+ section: Name
+ question: |
+  If the deceased had any alias(es) please state them here:
+Deceased_alias
+  help: |
+    An alias is an additional legal name held by a person
+---
+Question 4
+mandatory: True
+section: Gender
+question: |
+  What was the gender of the deceased?
+ fields:
+  - input type: radio
+  choices:
+  - Male
+  - Female 
+  - Non-binary
+---
+Question 5
+mandatory: True
+section: Identification
+question: |
+  What identification type did the deceased possess?
+  fields:
+  - input type: radio
+  choices:
+    - SIN NRIC
+    - SIN Birth Certificate
+    - Foreign Passport
+    - Unknown
+    - Others (please specify)
+- Identification (Others): Deceased_identification_specify
+show if:
+  variable: Deceased_identification
+  is: "Others (please specify)
+- Identification Number: Deceased_ID_no
+- Country of Issue: Deceased_ID_country_issue
+  code: Countries_list()
+  default: SG
+---
+Question 6
+mandatory: True
+section: Address
+question: |
+  Where was the deceased's address?
+  subquestion: |
+  What type was the deceased's address?
+  fields:
+   - input type: radio
+   choices: 
+   - Local
+   - Foreign
+   - Not available
+- Address of deceased: Deceased_address
+---
+Question 7
+mandatory: True
+section: Date
+question: |
+  When exactly or roughly, did the deceased pass away?
+code: |
+  from datetime import datetime
+  date_format = "%B %d, %Y"
+  today = datetime.now()
+  user_input = datetime.strptime (str(deceased.birthdate), date_format)
+  ans = (today - user_input).days
+---
+Question 8: Estate Value Check Again
+---
+Question 9: 
+mandatory: True
+section: Country of Domicile
+question: |
+  Where was the domicile's country of Domicile?
+  help: |
+  A domicile is generally where one's permant residence
+  code: Countries_list()
+---
+Question 10:
+mandatory: True
+section: Marital Status
+question: |
+  What was the deceased's martial status?
+  fields: 
+  - input type: radio
+  choices:
+  - Bachelor
+  - Divorced
+  - Married
+  - Spinster
+  - Widow
+  - Widower
+---
+Question 11:
+mandatory: True
+section: Nationality
+question: |
+  What was the deceased's nationality?
+  code: Countries_list()
+---
+Question 12:
+mandatory: True
+section: Religion
+question: |
+  What was the deceased's religion?
+  code: Religion_list()
+
+ 
+  
